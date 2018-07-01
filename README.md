@@ -1,24 +1,26 @@
 # cooperateHomework
 综合设计
 
-1、打开客户端后立即与服务器端连接，若连接成功则向客户端返回信息。
-2、用户注册：客户端传入用户名和密码，服务器端传回成功标志。
-3、用户登录：客户端传入用户名和密码，服务器端传回成功标志。
-4、四个功能要求在注册or登录后才能使用，请客户端做到这个保证。注册or登录后的用户信息在客户端中有保存。
-5、公告功能：客户端传入最近一次获得公告时间，服务器端查询在标记在这个时间后的所有公告并发出。
-6、保修功能：客户端传入一个预订时间，服务器端根据用户名、当前时间和预订时间修改表单。
-7、查询费用功能：客户端发送请求，服务器端根据用户名查询并返回费用。
-8、联系功能：客户端传入一个字符串，服务器端根据用户名保存字符串并返回成功信息。
+目前是做到能运行的程度。由于做数据库那边还没有发来接口，所以每次调用功能都只会返回同样的结果。目前稳定性很差，所以近期会不断修改（但接口不变）。
 
-服务器端模块
-1 Myserver.c
-主程序，为服务器端创建套接字，每accept一个连接就创建一个新进程处理。每个进程代表一个用户。
+server.go 是服务器端
+server.exe 是服务器端的可执行文件
+csInterface.java 实现接口类
+csInterface.class 是编译后的接口类
+client.java 是我做测试用的客户端
+由于在写接口类时我没有写包组织相关的内容，所以请把csInterface.class和客户端程序放在同一文件夹里。
 
-2 Myserver.h
-包含所有库的头文件。其中LISTENQ定义了缓冲长度，初设为20。
-
-3 func.h
-注册登录+四个功能的模块，涉及与数据库的交互。
-
-4 serverIO.h
-从套接字读和写入套接字。
+接口提供的方法：
+1.boolean SignIn(String username, String password)
+登录功能，目前总返回true
+2.boolean SignUp(String username, String password)
+注册功能，目前总返回true
+请保证在成功登录或注册后才使用以下四个功能：
+3.String[] getAnnouncement(String lasttime)
+目前不可用，参数lasttime为收到的上一个公告的时间
+4.String getMaintain()
+报修功能，目前总返回“server Maintain”
+5.float getAccount()
+费用查询功能，目前总返回1.7
+6.String getContact()
+联系功能，目前总返回“server Contact”
