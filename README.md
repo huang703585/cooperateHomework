@@ -16,8 +16,8 @@ client.java 是我做测试用的客户端
 2.boolean SignUp(String username, String password)
 注册功能，目前总返回true
 请保证在成功登录或注册后才使用以下四个功能：
-3.String[] getAnnouncement(String lasttime)
-目前不可用，参数lasttime为收到的上一个公告的时间
+3.String[] getAnnouncement()
+目前不可用
 4.String getMaintain()
 报修功能，目前总返回“server Maintain”
 5.float getAccount()
