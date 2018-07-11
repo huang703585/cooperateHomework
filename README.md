@@ -1,21 +1,24 @@
 # cooperateHomework
 综合设计
-7.11   //未完成
+7.11   
+
+
 这回连接上了数据库，如果安装了sql server的话可以跑整个后端了
 目前还存在的问题：不要使用中文，目前不支持utf8
 数据库默认名为“homework”，请不要有重名数据库，否则会被替换。
 每运行一次服务器程序都会重置一遍数据库。
 
+
 database文件夹存放数据库建立和初始化数据和数据库接口说明
 server文件夹是服务器端源代码文件
-docs文件夹用来存文档，包括课题报告
-test文件夹用来装测试，目前为空
+
 
 server.exe 是服务器端的可执行文件
 csInterface.java 实现接口类
 csInterface.class 是编译后的接口类
 client.java 是我做测试用的客户端
 由于在写接口类时我没有写包组织相关的内容，所以请把csInterface.class和客户端程序放在同一文件夹里。
+
 
 接口提供的方法：
 1.boolean SignIn(String username, String password)
