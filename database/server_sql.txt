@@ -1,0 +1,310 @@
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ADMINISTER') and o.name = 'FK_ADMINIST_RELATIONS_USR')
+alter table ADMINISTER
+   drop constraint FK_ADMINIST_RELATIONS_USR
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('NOTICE') and o.name = 'FK_NOTICE_RELATIONS_ADMINIST')
+alter table NOTICE
+   drop constraint FK_NOTICE_RELATIONS_ADMINIST
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('OWN') and o.name = 'FK_OWN_RELATIONS_USR')
+alter table OWN
+   drop constraint FK_OWN_RELATIONS_USR
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('PAYMENT') and o.name = 'FK_PAYMENT_RELATIONS_USR')
+alter table PAYMENT
+   drop constraint FK_PAYMENT_RELATIONS_USR
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('RENT') and o.name = 'FK_RENT_RELATIONS_USR')
+alter table RENT
+   drop constraint FK_RENT_RELATIONS_USR
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('REPAIR') and o.name = 'FK_REPAIR_RELATIONS_USR')
+alter table REPAIR
+   drop constraint FK_REPAIR_RELATIONS_USR
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('ADMINISTER')
+            and   name  = 'Relationship_6_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index ADMINISTER.Relationship_6_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('ADMINISTER')
+            and   type = 'U')
+   drop table ADMINISTER
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('NOTICE')
+            and   name  = 'Relationship_2_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index NOTICE.Relationship_2_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('NOTICE')
+            and   type = 'U')
+   drop table NOTICE
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('OWN')
+            and   name  = 'Relationship_1_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index OWN.Relationship_1_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('OWN')
+            and   type = 'U')
+   drop table OWN
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('PAYMENT')
+            and   name  = 'Relationship_3_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index PAYMENT.Relationship_3_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('PAYMENT')
+            and   type = 'U')
+   drop table PAYMENT
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('RENT')
+            and   name  = 'Relationship_5_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index RENT.Relationship_5_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('RENT')
+            and   type = 'U')
+   drop table RENT
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('REPAIR')
+            and   name  = 'Relationship_4_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index REPAIR.Relationship_4_FK
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('REPAIR')
+            and   type = 'U')
+   drop table REPAIR
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('USR')
+            and   type = 'U')
+   drop table USR
+go
+
+/*==============================================================*/
+/* Table: ADMINISTER                                            */
+/*==============================================================*/
+create table ADMINISTER (
+   a_id                 smallint             not null,
+   u_id                 smallint             null,
+   a_name               varchar(10)          not null,
+   a_pwd                varchar(20)          not null,
+   a_tel                char(11)             null,
+   constraint PK_ADMINISTER primary key nonclustered (a_id)
+)
+go
+
+/*==============================================================*/
+/* Index: Relationship_6_FK                                     */
+/*==============================================================*/
+create index Relationship_6_FK on ADMINISTER (
+u_id ASC
+)
+go
+
+/*==============================================================*/
+/* Table: NOTICE                                                */
+/*==============================================================*/
+create table NOTICE (
+   n_id                 smallint             not null,
+   a_id                 smallint             null,
+   n_title              text                 not null,
+   n_what               text                 not null,
+   n_date               datetime             not null,
+   constraint PK_NOTICE primary key nonclustered (n_id)
+)
+go
+
+/*==============================================================*/
+/* Index: Relationship_2_FK                                     */
+/*==============================================================*/
+create index Relationship_2_FK on NOTICE (
+a_id ASC
+)
+go
+
+/*==============================================================*/
+/* Table: OWN                                                   */
+/*==============================================================*/
+create table OWN (
+   o_id                 smallint             not null,
+   u_id                 smallint             null,
+   o_name               varchar(20)          not null,
+   constraint PK_OWN primary key nonclustered (o_id)
+)
+go
+
+/*==============================================================*/
+/* Index: Relationship_1_FK                                     */
+/*==============================================================*/
+create index Relationship_1_FK on OWN (
+u_id ASC
+)
+go
+
+/*==============================================================*/
+/* Table: PAYMENT                                               */
+/*==============================================================*/
+create table PAYMENT (
+   p_id                 smallint             not null,
+   u_id                 smallint             null,
+   p_way                varchar(10)          null,
+   p_money              money                not null,
+   p_date               datetime             not null,
+   constraint PK_PAYMENT primary key nonclustered (p_id)
+)
+go
+
+/*==============================================================*/
+/* Index: Relationship_3_FK                                     */
+/*==============================================================*/
+create index Relationship_3_FK on PAYMENT (
+u_id ASC
+)
+go
+
+/*==============================================================*/
+/* Table: RENT                                                  */
+/*==============================================================*/
+create table RENT (
+   rent_id              smallint             not null,
+   u_id                 smallint             null,
+   rent_name            varchar(20)          not null,
+   constraint PK_RENT primary key nonclustered (rent_id)
+)
+go
+
+/*==============================================================*/
+/* Index: Relationship_5_FK                                     */
+/*==============================================================*/
+create index Relationship_5_FK on RENT (
+u_id ASC
+)
+go
+
+/*==============================================================*/
+/* Table: REPAIR                                                */
+/*==============================================================*/
+create table REPAIR (
+   r_id                 smallint             not null,
+   u_id                 smallint             null,
+   r_what               text                 not null,
+   r_who                varchar(10)          not null,
+   r_date               datetime             not null,
+   constraint PK_REPAIR primary key nonclustered (r_id)
+)
+go
+
+/*==============================================================*/
+/* Index: Relationship_4_FK                                     */
+/*==============================================================*/
+create index Relationship_4_FK on REPAIR (
+u_id ASC
+)
+go
+
+/*==============================================================*/
+/* Table: USR                                                   */
+/*==============================================================*/
+create table USR (
+   u_id                 smallint             not null,
+   u_name               varchar(10)          not null,
+   u_pwd                varchar(20)          not null,
+   u_addr               text                 null,
+   u_tel                char(11)             null,
+   u_bill               money                not null,
+   constraint PK_USR primary key nonclustered (u_id)
+)
+go
+
+alter table ADMINISTER
+   add constraint FK_ADMINIST_RELATIONS_USR foreign key (u_id)
+      references USR (u_id)
+go
+
+alter table NOTICE
+   add constraint FK_NOTICE_RELATIONS_ADMINIST foreign key (a_id)
+      references ADMINISTER (a_id)
+go
+
+alter table OWN
+   add constraint FK_OWN_RELATIONS_USR foreign key (u_id)
+      references USR (u_id)
+go
+
+alter table PAYMENT
+   add constraint FK_PAYMENT_RELATIONS_USR foreign key (u_id)
+      references USR (u_id)
+go
+
+alter table RENT
+   add constraint FK_RENT_RELATIONS_USR foreign key (u_id)
+      references USR (u_id)
+go
+
+alter table REPAIR
+   add constraint FK_REPAIR_RELATIONS_USR foreign key (u_id)
+      references USR (u_id)
+go

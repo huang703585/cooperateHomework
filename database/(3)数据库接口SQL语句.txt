@@ -1,0 +1,38 @@
+1.登录
+SELECT u_pwd AS Password
+  FROM [USR]
+  WHERE u_name = '张三';	
+
+2.注册
+(1)读出当前最后一个用户id（即最大u_id）
+SELECT u_id
+  FROM [USR]
+	WHERE u_id IN(SELECT MAX(u_id) FROM [USR]);
+(2)最大u_id + 1，为新插入记录的u_id
+
+(3)插入
+INSERT INTO [USR] VALUES(2,'李四','bbb','欣苑二316','18989274610','100');
+
+
+4.报修
+(1)读出当前最后一个报修编号（即最大r_id）
+SELECT r_id
+  FROM REPAIR
+	WHERE r_id IN(SELECT MAX(r_id) FROM REPAIR);
+(2)最大r_id + 1，为新插入记录的r_id
+
+(3)插入
+INSERT INTO REPAIR(r_id,r_what,r_who,r_date) VALUES(2,'欣苑三大门门锁','李四','2018-6-3');
+
+(4)显示报修信息
+SELECT r_id AS '报修编号' ,r_what AS '报修对象' ,r_date AS '报修时间'
+  FROM REPAIR
+  ORDER BY r_id DESC;
+
+5.费用查询
+SELECT u_bill AS '物业费'
+  FROM [USR]
+  WHERE u_name = '张三';	
+
+
+

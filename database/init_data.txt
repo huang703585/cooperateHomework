@@ -1,0 +1,15 @@
+INSERT INTO [USR] VALUES(1,'zhang','aaa','欣苑二315','13547851422','100');
+
+INSERT INTO ADMINISTER VALUES(1,'1','张三','aaa','13547851422');
+
+INSERT INTO NOTICE VALUES(1,1,'announcement1','#it is a announcement','2018-6-1');
+
+INSERT INTO OWN VALUES(1,1,'自行车');
+
+INSERT INTO PAYMENT VALUES(1,1,'支付宝','100','2018-6-2');
+
+INSERT INTO RENT VALUES(1,1,'篮球');
+
+INSERT INTO REPAIR VALUES(1,1,'欣苑二大门门锁','zhang','2018-6-2');
+
+go
