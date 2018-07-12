@@ -7,15 +7,17 @@ import (
        "strconv"
        "time"
 )
-const db = "SQLCMD"
+var db string
 var cmd *exec.Cmd
 var workplace string
 
 func init(){
-     workplace = "C:\\Users/asus-pc/gowork/Homework"
-     fmt.Println("sql init at .sql")
+     //workplace = "C:\\Users/asus-pc/gowork/Homework"
+     //workplace = "../../.."
+     workplace = ".."
+     fmt.Println("sql init at ./src/sql")
      var err error
-     //db, err = exec.LookPath("SQLCMD.exe")	
+     db, err = exec.LookPath("SQLCMD.exe")	
      if err != nil {
      	fmt.Println("no sql server"+err.Error())
      }
@@ -139,9 +141,12 @@ func GetMaintain(username string) string{
      }	
 
      input = fmt.Sprintf("SELECT r_what FROM REPAIR ORDER BY r_id DESC")
-     output = getResult(input)
+     what := getResult(input)
+     output = fmt.Sprintf("%d %s %s", newrid, what, date)
 
-     PayUp(username, 50.10)	  
+     PayUp(username, 50.10)
+     addAnnouncement(username, output)
+     
      return output
 }
 
@@ -172,15 +177,23 @@ func GetAnnouncement(lasttime string) []string{
      output := out.String()
      temp := strings.Split(output,"\n")
      res := temp[2:]
-     var lastindex int
+
+     input = fmt.Sprintf("SELECT n_id FROM NOTICE WHERE n_id IN(SELECT MAX(n_id) FROM NOTICE)")
+     output = getResult(input)
+     num, _ := strconv.Atoi(output)
+     /*fmt.Println(num)
+     for j := 0; j < num ; j++ {
+     	 fmt.Println(res[j])
+     }*/
+
+    /* var lastindex int
      for i, s := range res {
      	 if strings.Index(s, "#") == 0 {
 	    lastindex = i
 	    break
 	 }
-     }
-     ret := res[:lastindex+1]
-     
+     }*/
+     ret := res[:num]
      return ret
 }
 
@@ -202,12 +215,11 @@ func addAnnouncement(username, s string){
      t := time.Now()
      yy, mm ,dd := t.Date()
      date := fmt.Sprintf("%d-%d-%d", yy, mm, dd)
-     input = fmt.Sprintf("INSERT INTO NOTICE(n_id,n_title,n_what,n_date) VALUES(%d,'%s','%s','%s')", newnid, username, s, date)
+     what := fmt.Sprintf("#"+s)
+     input = fmt.Sprintf("INSERT INTO NOTICE(n_id,n_title,n_what,n_date) VALUES(%d,'%s','%s','%s')", newnid, username, what, date)
      cmd.Stdin = strings.NewReader(input)
      err := cmd.Run()
      if err != nil {
      	fmt.Printf(err.Error())
      }	
 }
-
-//func GetContact(username string) bool
