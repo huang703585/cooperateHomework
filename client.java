@@ -12,17 +12,19 @@ public class client
 	String[] s = a.getAnnouncement("2018-01-01");
         System.out.println(s[0]);
 	System.out.println(s[1]);
-	System.out.println(s[2]);
 	System.out.println(s.length);
 	a.close();
     
 	csInterface b = new csInterface();
 	System.out.println(b.SignUp("zhang","123456"));
-	System.out.println(b.SignIn("zhang","123456"));
+	System.out.println(b.SignIn("zhang","aaa"));
 	System.out.println(b.getMaintain());
 	System.out.println(b.getContact());
 	System.out.println(b.getAccount());
-	System.out.println(b.getAnnouncement("2018-12-31"));
+	String[] t = b.getAnnouncement("2018-1-31");
+	System.out.println(t[0]);
+	System.out.println(t[1]);
+	System.out.println(t[2]);
 	b.close();
 	
     }
