@@ -194,6 +194,7 @@ func GetAnnouncement(lasttime string) []string{
 	 }
      }*/
      ret := res[:num]
+     ret = append(ret, "end")
      return ret
 }
 
