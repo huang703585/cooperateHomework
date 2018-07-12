@@ -106,7 +106,6 @@ func Announcement(client *Client, lasttime string) {
     	write(client.ClientConn,value+"\n")
 	fmt.Println(value)
     }
-    writeend(client)
 }
 
 func writeend(client *Client){
